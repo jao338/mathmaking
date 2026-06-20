@@ -1,3 +1,16 @@
-let hello_world: string = 'Hello World'
+import { buildApp } from './app.js';
+import {env} from './config/env.js';
 
-console.log(hello_world)
+const app = buildApp();
+
+app.listen({
+    port: env.PORT,
+    host: '0.0.0.0',
+})
+    .then(() => {
+        console.log(`Server running on port ${env.PORT}`);
+    })
+    .catch((error) => {
+        app.log.error(error);
+        process.exit(1);
+    });
